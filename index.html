@@ -230,7 +230,6 @@
     window.addEventListener("DOMContentLoaded", () => {
       document.getElementById("lynkBtn").href = CONFIG.LYNK_ID_URL;
       
-      // Muat data media dari localStorage browser jika ada sebelumnya
       const localMedia = localStorage.getItem("pawbudget_media");
       const localName = localStorage.getItem("pawbudget_media_name");
       const localOwner = localStorage.getItem("pawbudget_owner");
@@ -244,7 +243,6 @@
       }
     });
 
-    // Handler Upload & Penyimpanan Lokal (Client Storage)
     function handleMediaUpload(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -260,7 +258,6 @@
           name: file.name
         };
 
-        // Simpan ke localStorage browser pengguna secara privat
         localStorage.setItem("pawbudget_media", JSON.stringify(savedMediaData));
         localStorage.setItem("pawbudget_media_name", file.name);
 
@@ -365,7 +362,6 @@
       document.getElementById("actionAdvice").textContent = data.action_advice;
       document.getElementById("healthGuardrail").textContent = data.health_guardrail;
 
-      // Render Media di Kartu Laporan
       const cardMediaWrapper = document.getElementById("cardMediaWrapper");
       if (savedMediaData && savedMediaData.url) {
         if (savedMediaData.type === "video") {
@@ -378,7 +374,6 @@
         cardMediaWrapper.classList.add("hidden");
       }
 
-      // Render Kartu Affiliate
       const container = document.getElementById("affiliateContainer");
       container.innerHTML = "";
       data.recommended_items.forEach((key) => {
@@ -397,4 +392,12 @@
               </div>
               <span class="shrink-0 bg-amber-500 text-slate-950 text-xs font-extrabold px-3 py-2 rounded-lg">
                 Cek Harga →
- 
+              </span>
+            </div>
+          </a>
+        `;
+      });
+
+      latestSummaryText = `🐾 *${data.plan_title}*\n` +
+        `👤 Pemilik: ${ownerName}\n` +
+        `• Budget: ${formatRp(budget)}/bulan (${formatRp(data.cost_per_day_per_pet)}/ekor/hari
